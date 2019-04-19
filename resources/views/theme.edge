@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {{ style('style') }}
+    {{ style('forms') }}
+</head>
+<body>
+    <header>
+        <a href="/" id="logo">JobPostr</a>
+        <nav>
+            <ul>
+                <li><a href="/">Jobs</a></li>
+                @loggedIn
+                    <li><a href="/post-a-job">My Jobs</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                @else
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/signup">Signup</a></li>
+                @endloggedIn
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+
+      <h1>Edit Job</h1>
+
+
+      <div class="job-container">
+        @if(flashMessage('message'))
+            <span>{{ flashMessage('message') }}</span>
+        @endif
+            <form action="{{ route('JobController.update', { }) }}" method="POST">
+              {{ csrfField() }}
+      
+              <label for="title">Job Title</label>
+              <input type="text" name="title" value="{{''}}">
+              @if(hasErrorFor('title'))
+                  <span>
+                      {{ getErrorFor('title') }}
+                  </span>
+              @endif
+      
+              <label for="link">Link URL</label>
+              <input type="text" name="link" value="{{'' }}">
+              @if(hasErrorFor('link'))
+                  <span>
+                      {{ getErrorFor('link') }}
+                  </span>
+              @endif
+      
+              <label for="description">Description</label>
+              <input type="text" name="description" value="{{ ''}}">
+              @if(hasErrorFor('description'))
+                  <span>
+                      {{ getErrorFor('description') }}
+                  </span>
+              @endif
+      
+              <button type="submit">Update Job</button><br>
+            </form>
+        </div>
+    
+    </div>
+</body>
+</html>
+
+
+
+
+
+
